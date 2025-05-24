@@ -1,6 +1,20 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+
 import { MessageService } from './message.service';
-import { CreateMessageDto, Message } from './entities/message.entity';
+
+import {
+  CreateMessageDto,
+  Message,
+  UpdateMessageDto,
+} from './entities/message.entity';
 
 @Controller('messages')
 export class MessageController {
@@ -19,5 +33,15 @@ export class MessageController {
   @Post()
   createMessage(@Body() body: CreateMessageDto): void {
     this.messageService.createMessage(body);
+  }
+
+  @Delete(':id')
+  deleteMessage(@Param('id') id: string) {
+    this.messageService.deleteMessage(id);
+  }
+
+  @Patch(':id')
+  updateMessage(@Param('id') id: string, @Body() body: UpdateMessageDto) {
+    this.messageService.updateMessage(id, body);
   }
 }

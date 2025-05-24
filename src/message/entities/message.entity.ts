@@ -12,3 +12,9 @@ export class CreateMessageDto {
   to: string;
   content: string;
 }
+
+export class UpdateMessageDto {
+  from?: string;
+  to?: string;
+  content?: string;
+}
