@@ -1,25 +1,23 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { MessageServie } from './message.service';
+import { MessageService } from './message.service';
+import { CreateMessageDto, Message } from './entities/message.entity';
 
 @Controller('messages')
 export class MessageController {
-  constructor(private readonly messageService: MessageServie) {}
+  constructor(private readonly messageService: MessageService) {}
 
   @Get()
-  findAll(): string {
-    return this.messageService.getMessage();
+  findAll(): Message[] {
+    return this.messageService.findAll();
   }
 
-  // @Get('fixa/:dinamico/fixa') // so para mostrar como é possivel diversas combinaçoes
-  // @Get(':dinamico/:dinamico/fixa')
-  @Get(':id') // parametro de rota
-  findByID(@Param('id') parametros: any) {
-    return `${parametros}`;
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.messageService.findOne(id);
   }
 
   @Post()
-  create(@Body() body: object) {
-    console.log(body);
-    return body;
+  createMessage(@Body() body: CreateMessageDto): void {
+    this.messageService.createMessage(body);
   }
 }
