@@ -12,8 +12,8 @@ export class MessageService {
   private lastId = 1;
   private messages: Message[] = [];
 
-  findOne(id: string): Message | undefined {
-    const message = this.messages.find((item) => item.id === +id);
+  findOne(id: number): Message | undefined {
+    const message = this.messages.find((item) => item.id === id);
     if (message) return message;
     this.throwNotFound();
   }
@@ -34,18 +34,18 @@ export class MessageService {
     this.messages.push(message);
   }
 
-  deleteMessage(id: string) {
-    const exists = this.messages.some((message) => message.id === +id);
+  deleteMessage(id: number) {
+    const exists = this.messages.some((message) => message.id === id);
 
     if (exists) {
-      this.messages = this.messages.filter((message) => message.id !== +id);
+      this.messages = this.messages.filter((message) => message.id !== id);
     } else {
       this.throwNotFound();
     }
   }
 
-  updateMessage(id: string, body: UpdateMessageDto): void {
-    const messageIdx = this.messages.findIndex((message) => message.id === +id);
+  updateMessage(id: number, body: UpdateMessageDto): void {
+    const messageIdx = this.messages.findIndex((message) => message.id === id);
 
     if (messageIdx >= 0) {
       this.messages[messageIdx] = {
