@@ -28,20 +28,20 @@ export class MessageController {
   }
 
   @Post()
-  createMessage(@Body() body: CreateMessageDto): void {
-    this.messageService.createMessage(body);
+  async createMessage(@Body() body: CreateMessageDto) {
+    await this.messageService.createMessage(body);
   }
 
   @Delete(':id')
-  deleteMessage(@Param('id', ParseIntPipe) id: number) {
-    this.messageService.deleteMessage(id);
+  async deleteMessage(@Param('id', ParseIntPipe) id: number) {
+    await this.messageService.deleteMessage(id);
   }
 
   @Patch(':id')
-  updateMessage(
+  async updateMessage(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateMessageDto,
   ) {
-    this.messageService.updateMessage(id, body);
+    await this.messageService.updateMessage(id, body);
   }
 }
