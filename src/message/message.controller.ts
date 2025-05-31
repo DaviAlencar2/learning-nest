@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 
 import { MessageService } from './message.service';
-import { Message } from './entities/message.entity';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 
@@ -19,7 +18,7 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Get()
-  findAll(): Message[] {
+  findAll() {
     return this.messageService.findAll();
   }
 
