@@ -15,7 +15,7 @@ export class Users {
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   @IsEmail()
   email: string;
 
