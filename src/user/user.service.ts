@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-// import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -46,9 +46,16 @@ export class UserService {
     this.throwNotFound();
   }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.usersRepository.preload({
+      id,
+      ...updateUserDto,
+    });
+
+    if (!user) return this.throwNotFound();
+    await this.usersRepository.save(user);
+    return user;
+  }
 
   async remove(id: number) {
     const user = await this.usersRepository.findOneBy({
